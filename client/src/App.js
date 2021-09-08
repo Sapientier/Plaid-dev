@@ -5,14 +5,14 @@ import logo from './logo.svg';
 
 const PlaidLink = ({ token }) => {
     const onSuccess = useCallback(
-        (token) => {
+        (public_token) => {
             // send public_token to server
             const response = fetch('/set_access_token', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: `public_token=${JSON.stringify({ token })}`,
+                body: JSON.stringify({ public_token }),
             });
             // Handle response ...
             return response;

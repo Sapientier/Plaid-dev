@@ -55,22 +55,23 @@ app.post('/create_link_token', async (req, res) => {
 // an API access_token
 // https://plaid.com/docs/#exchange-token-flow
 app.post('/set_access_token', async (request, response) => {
-    PUBLIC_TOKEN = request.body.public_token;
+    const publicToken = request.body.public_token;
+
     try {
         const tokenResponse = await client.itemPublicTokenExchange({
-            public_token: PUBLIC_TOKEN,
+            public_token: publicToken,
         });
-        prettyPrintResponse(tokenResponse);
-        ACCESS_TOKEN = tokenResponse.data.access_token;
-        ITEM_ID = tokenResponse.data.item_id;
+        console.log(tokenResponse);
+        const accessToken = tokenResponse.data.access_token;
+        const itemID = tokenResponse.data.item_id;
         response.json({
-            access_token: ACCESS_TOKEN,
-            item_id: ITEM_ID,
+            access_token: accessToken,
+            item_id: itemID,
             error: null,
         });
     } catch (error) {
-        prettyPrintResponse(error.response);
-        return response.json(formatError(error.response));
+        console.log(error.response);
+        return response.json(error.response);
     }
 });
 
