@@ -88,7 +88,7 @@ app.post('/set_access_token', async (req, res) => {
     } */
 });
 
-app.post('/exchange_public_token', async (req, res) => {
+/* app.post('/exchange_public_token', async (req, res) => {
     try {
         const exchangeTokenResponse = await client.exchangePublicToken(
             req.body.public_token
@@ -99,7 +99,7 @@ app.post('/exchange_public_token', async (req, res) => {
     } catch (e) {
         res.json({ error: e });
     }
-});
+}); */
 
 app.post('/item/fire_webhooks', async (req, res) => {
     const response = await client.sandboxItemFireWebhook(accessT, 'DEFAULT_UPDATE').catch((err) => {
