@@ -54,14 +54,27 @@ app.post('/create_link_token', async (req, res) => {
 // Exchange token flow - exchange a Link public_token for
 // an API access_token
 // https://plaid.com/docs/#exchange-token-flow
-app.post('/set_access_token', async (request, response) => {
-    const publicToken = request.body.public_token;
+app.post('/set_access_token', async (req, res) => {
+    const publicToken = req.body.public_token;
+    console.log(publicToken)
 
     try {
+        const exchangeTokenResponse = await client.exchangePublicToken(
+            req.body.public_token
+        );
+        const accessToken = exchangeTokenResponse.access_token;
+        accessT = accessToken;
+        console.log(accessT)
+        res.redirect(307, '/item/fire_webhooks/');
+    } catch (e) {
+        res.json({ error: e });
+    }
+
+    /* try {
         const tokenResponse = await client.itemPublicTokenExchange({
             public_token: publicToken,
         });
-        console.log(tokenResponse);
+        //console.log(tokenResponse);
         const accessToken = tokenResponse.data.access_token;
         const itemID = tokenResponse.data.item_id;
         response.json({
@@ -72,7 +85,7 @@ app.post('/set_access_token', async (request, response) => {
     } catch (error) {
         console.log(error.response);
         return response.json(error.response);
-    }
+    } */
 });
 
 app.post('/exchange_public_token', async (req, res) => {

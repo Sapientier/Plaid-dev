@@ -15,6 +15,7 @@ const PlaidLink = ({ token }) => {
                 body: JSON.stringify({ public_token }),
             });
             // Handle response ...
+            console.log(response)
             return response;
         },
         []
@@ -47,6 +48,7 @@ const App = () => {
             });
             const { link_token } = await response.json();
             setToken(link_token);
+            console.log(link_token)
         }
         createLinkToken();
     }, []);
