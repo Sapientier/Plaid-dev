@@ -56,15 +56,14 @@ app.post('/create_link_token', async (req, res) => {
 // https://plaid.com/docs/#exchange-token-flow
 app.post('/set_access_token', async (req, res) => {
     const publicToken = req.body.public_token;
-    console.log(publicToken)
 
     try {
         const exchangeTokenResponse = await client.exchangePublicToken(
-            req.body.public_token
+            publicToken
         );
         const accessToken = exchangeTokenResponse.access_token;
         accessT = accessToken;
-        console.log(accessT)
+        console.log(accessT);
         res.redirect(307, '/item/fire_webhooks/');
     } catch (e) {
         res.json({ error: e });

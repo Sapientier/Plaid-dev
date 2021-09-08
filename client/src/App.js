@@ -15,8 +15,7 @@ const PlaidLink = ({ token }) => {
                 body: JSON.stringify({ public_token }),
             });
             // Handle response ...
-            console.log(response)
-            return response;
+            console.log(response);
         },
         []
     );
@@ -42,13 +41,13 @@ const App = () => {
 
     // generate a link_token
     useEffect(() => {
-        async function createLinkToken() {
+        const createLinkToken = async () => {
             let response = await fetch("/create_link_token", {
                 method: "POST",
             });
             const { link_token } = await response.json();
             setToken(link_token);
-            console.log(link_token)
+            console.log(link_token);
         }
         createLinkToken();
     }, []);
